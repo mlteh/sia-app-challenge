@@ -5,9 +5,13 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import Chip from 'material-ui/Chip';
+ 
+const allProblems = ['Broken Chair Seat', 'Torn Seat', 'Broken IFE', 'Failed Seat Recline', 'Armrest Broken', 'Ports Spoilt', 'Broken Screen', 'Tray Table Broken', 'Others' ];
 
 class Airplane extends Component {
+
+
+ 
   constructor(props) {
     super(props);
     this.rows = 30;
@@ -15,7 +19,7 @@ class Airplane extends Component {
     this.state = {
       open: false,
       selectedSeatNum: null,
-      properties: { status: "Pending Service", last_service_date: new Date(), list}
+      properties: { status: "Pending Service", last_service_date: new Date(), list_current_problems: [{title: "Seat Leather Torn", description: "Bottom seat leather town, however seat is still usable"}, {title: "IFE spoilt", description: "IFE unable to be turned on"}]}
     };
 
   } 
@@ -28,6 +32,10 @@ class Airplane extends Component {
     console.log("CLOSE")
     this.setState({open: false, selectedSeatNum: null });
   };
+
+  deleteProblem(idx) {
+    console.log("DELETE", idx)
+  }
 
   buildAircraftRows() {
     let aircraftRows = []
@@ -48,7 +56,7 @@ class Airplane extends Component {
               <label htmlFor={`${i}C`}>{`${i}C`}</label>
             </li>
             <li className="seat" onClick={ () => {this.showDialog(`${i}D`)} } >
-              <input type="checkbox" disabled id={`${i}D`} />
+              <input type="checkbox" id={`${i}D`} />
               <label htmlFor={`${i}D`}>{`${i}D`}</label>
             </li>
             <li className="seat" onClick={ () => {this.showDialog(`${i}E`)} }>
@@ -85,7 +93,13 @@ class Airplane extends Component {
         <ol className="cabin fuselage">
           { this.buildAircraftRows() }
         </ol>
-       <SelectProblem properties={this.state.properties} seatNumber={this.state.selectedSeatNum} open={this.state.open} handleClose={() => this.handleClose()}/>
+        <SelectProblem 
+          properties={this.state.properties} 
+          seatNumber={this.state.selectedSeatNum} 
+          open={this.state.open} 
+          handleClose={() => this.handleClose()}
+          handleProblemDelete= {(idx) => this.deleteProblem(idx)}
+        />
         <div className="exit exit--back fuselage">
         </div>
       </div>
