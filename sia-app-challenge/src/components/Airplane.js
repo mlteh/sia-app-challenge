@@ -5,6 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import Chip from 'material-ui/Chip';
 
 class Airplane extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class Airplane extends Component {
 
     this.state = {
       open: false,
-      selectedSeatNum: null
+      selectedSeatNum: null,
+      properties: { status: "Pending Service", last_service_date: new Date(), list}
     };
 
   } 
@@ -83,7 +85,7 @@ class Airplane extends Component {
         <ol className="cabin fuselage">
           { this.buildAircraftRows() }
         </ol>
-       <SelectProblem seatNumber={this.state.selectedSeatNum} open={this.state.open} handleClose={() => this.handleClose()}/>
+       <SelectProblem properties={this.state.properties} seatNumber={this.state.selectedSeatNum} open={this.state.open} handleClose={() => this.handleClose()}/>
         <div className="exit exit--back fuselage">
         </div>
       </div>

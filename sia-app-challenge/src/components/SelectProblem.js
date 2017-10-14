@@ -6,6 +6,8 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 export default class SelectProblem extends React.Component {
   render() {
+
+    const properties = this.props.properties
     const actions = [
       <FlatButton
         label="Cancel"
@@ -29,7 +31,9 @@ export default class SelectProblem extends React.Component {
         onRequestClose={this.props.handleClose}
         autoScrollBodyContent={true}
       >
-        <p><span>Current status: </span><span></span></p>
+        <p><span>Current status: </span><span>{properties.status}</span></p>
+        <p><span>Last Serviced Date: </span><span>{properties.status}</span></p>
+        <p><span>Current Problems: </span><span>{properties.status}</span></p>      
       </Dialog>
     );
   }
