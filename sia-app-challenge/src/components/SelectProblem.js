@@ -4,56 +4,33 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
-const styles = {
-  radioButton: {
-    marginTop: 16,
-  },
-};
-
-/**
- * Dialog content can be scrollable.
- */
 export default class SelectProblem extends React.Component {
-  state = {
-    open: false,
-  };
-
-  handleOpen = () => {
-    this.setState({open: true});
-  };
-
-  handleClose = () => {
-    this.setState({open: false});
-  };
-
   render() {
     const actions = [
       <FlatButton
         label="Cancel"
         primary={true}
-        onClick={this.handleClose}
+        onClick={this.props.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.handleClose}
+        onClick={this.props.handleClose}
       />,
     ];
 
     return (
-      <div>
-        <RaisedButton label="Scrollable Dialog" onClick={this.handleOpen} />
-        <Dialog
-          title="Scrollable Dialog"
-          actions={actions}
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-          autoScrollBodyContent={true}
-        >
-        </Dialog>
-      </div>
+      <Dialog
+        title={`Seat Status for ${this.props.seatNumber}`}
+        actions={actions}
+        modal={false}
+        open={this.props.open}
+        onRequestClose={this.props.handleClose}
+        autoScrollBodyContent={true}
+      >
+        <p><span>Current status: </span><span></span></p>
+      </Dialog>
     );
   }
 }

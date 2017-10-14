@@ -1,12 +1,31 @@
 // imports
 import React, { Component } from 'react';
+import SelectProblem from '../components/SelectProblem';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 class Airplane extends Component {
   constructor(props) {
     super(props);
     this.rows = 30;
 
+    this.state = {
+      open: false,
+      selectedSeatNum: null
+    };
+
   } 
+
+  handleOpen = (seatNumber) => {
+    this.setState({open: true, selectedSeatNum: seatNumber});
+  };
+
+  handleClose = () => {
+    console.log("CLOSE")
+    this.setState({open: false, selectedSeatNum: null });
+  };
 
   buildAircraftRows() {
     let aircraftRows = []
@@ -14,27 +33,27 @@ class Airplane extends Component {
       aircraftRows.push(
         <li key={i}className={`row row--${i}`}>
           <ol className="seats" type="A">
-            <li className="seat">
+            <li className="seat" onClick={ () => {this.showDialog(`${i}A`)} }>
               <input type="checkbox" id={`${i}A`} />
               <label htmlFor={`${i}A`}>{`${i}A`}</label>
             </li>
-            <li className="seat">
+            <li className="seat" onClick={ () => {this.showDialog(`${i}B`)} }>
               <input type="checkbox" id={`${i}B`} />
               <label htmlFor={`${i}B`}>{`${i}B`}</label>
             </li>
-            <li className="seat">
-              <input type="checkbox" id={`${i}C`} />
+            <li className="seat" onClick={ () => {this.showDialog(`${i}C`)} } >
+              <input type="checkbox" id={`${i}C`}/>
               <label htmlFor={`${i}C`}>{`${i}C`}</label>
             </li>
-            <li className="seat">
+            <li className="seat" onClick={ () => {this.showDialog(`${i}D`)} } >
               <input type="checkbox" disabled id={`${i}D`} />
               <label htmlFor={`${i}D`}>{`${i}D`}</label>
             </li>
-            <li className="seat">
+            <li className="seat" onClick={ () => {this.showDialog(`${i}E`)} }>
               <input type="checkbox" id={`${i}E`} />
               <label htmlFor={`${i}E`}>{`${i}E`}</label>
             </li>
-            <li className="seat">
+            <li className="seat" onClick={ () => {this.showDialog(`${i}F`)} }>
               <input type="checkbox" id={`${i}F`} />
               <label htmlFor={`${i}F`}>{`${i}F`}</label>
             </li>
@@ -43,10 +62,17 @@ class Airplane extends Component {
       )
     }
     return aircraftRows;
-    console.log("AIR", aircraftRows)
+  }
+
+  showDialog(seatNumber) {
+    console.log("CALLED", seatNumber)
+    this.handleOpen(seatNumber);
   }
   
   render() {
+
+    
+
     return (
       <div className="plane">
         <div className="cockpit">
@@ -57,6 +83,7 @@ class Airplane extends Component {
         <ol className="cabin fuselage">
           { this.buildAircraftRows() }
         </ol>
+       <SelectProblem seatNumber={this.state.selectedSeatNum} open={this.state.open} handleClose={() => this.handleClose()}/>
         <div className="exit exit--back fuselage">
         </div>
       </div>
