@@ -6,7 +6,6 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
  
-const allProblems = ['Broken Chair Seat', 'Torn Seat', 'Broken IFE', 'Failed Seat Recline', 'Armrest Broken', 'Ports Spoilt', 'Broken Screen', 'Tray Table Broken', 'Others' ];
 
 class Airplane extends Component {
 
@@ -86,7 +85,7 @@ class Airplane extends Component {
     return (
       <div className="plane">
         <div className="cockpit">
-          <h1>Please select a seat</h1>
+          <h2>Manage the seats for your flight</h2>
         </div>
         <div className="exit exit--front fuselage">
         </div>
