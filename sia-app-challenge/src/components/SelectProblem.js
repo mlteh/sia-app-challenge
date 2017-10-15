@@ -102,7 +102,7 @@ export default class SelectProblem extends React.Component {
         autoScrollBodyContent={true}
       >
         <Divider/>
-        <p><span>Current status: </span><span>{"No Problems"}</span></p>
+        <p><span>Current status: </span><span>{ properties[this.props.seatNumber] ? "Pending Issues" : "No Problems"}</span></p>
         <div><span>Current Problems: </span><div className="chipWrapper">{this.buildProblemChips(properties[this.props.seatNumber])}</div></div> 
         <div>Add New Problem: <span>{this.buildAddProblem()}</span></div>   
         <div>Description(Optional): <span>{this.buildAddProblemDes()}</span></div>     

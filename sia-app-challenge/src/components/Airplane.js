@@ -6,11 +6,19 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import firebase from '../firebase'
+import Chip from 'material-ui/Chip';
+
+const styles = {
+  chip: {
+    margin: 4,
+  },
+  wrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+};
 
 class Airplane extends Component {
-
-
- 
   constructor(props) {
     super(props);
     this.rows = 30;
@@ -102,9 +110,7 @@ class Airplane extends Component {
   }
   
   render() {
-
-    
-
+ 
     return (
       <div className="plane">
         <div className="cockpit">
