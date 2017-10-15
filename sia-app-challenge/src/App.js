@@ -20,6 +20,7 @@ class App extends Component {
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Cabin Management System</h1>
+            <h1>9V-SVA</h1>
           </header> 
           <Airplane aircraftSerial={this.state.aircraftSerial}/>
         </div>
