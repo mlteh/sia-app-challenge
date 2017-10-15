@@ -6,6 +6,7 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import AutoComplete from 'material-ui/AutoComplete';
 import Chip from 'material-ui/Chip';
 import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
 
 const allProblems = ['Broken Chair Seat', 'Torn Seat', 'Broken IFE', 'Failed Seat Recline', 'Armrest Broken', 'Ports Spoilt', 'Broken Screen', 'Tray Table Broken', 'Others' ];
 
@@ -14,21 +15,25 @@ export default class SelectProblem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {newProblemTitle: '', newProblemDescription: ''};
+    console.log("props", props)
   }
 
   buildProblemChips(listCurrentProblems) {
-    let problemChips = [];
 
-    listCurrentProblems.forEach( (problem, idx) => {
+    let problemChips = [];
+    if (!listCurrentProblems) return null
+    console.log("listCurrentProblems", Object.keys(listCurrentProblems))
+    let seatKeys = Object.keys(listCurrentProblems);
+    seatKeys.forEach((key, idx) => {
       problemChips.push(
         <Chip
           key={idx}
           className="chip"
           backgroundColor={'#3F51B5'}
           labelColor={'#fff'}
-          onRequestDelete={() => this.props.handleProblemDelete(idx)}
+          onRequestDelete={() => this.props.handleProblemDelete(idx, key)}
         >
-          {problem.title}
+          {listCurrentProblems[key].problem}
         </Chip>
       );
     });
@@ -39,7 +44,12 @@ export default class SelectProblem extends React.Component {
     this.setState({
       newProblemTitle: titleText,
     });
-    console.log("TITLETEXT", titleText)
+  };
+
+  handleUpdateDes = (des) => {
+    this.setState({
+      newProblemDescription: this.refs.des.getValue()
+    });
   };
 
   buildAddProblem(){
@@ -57,13 +67,16 @@ export default class SelectProblem extends React.Component {
     return(
       <TextField
         hintText="Description"
+        ref={"des"}
+        onChange={this.handleUpdateDes}
       />
     );
   }
 
   render() {
+    if(!this.props.seatNumber) return null
     const properties = this.props.properties
-    console.log("properties", properties)
+    console.log("properties", this.props.seatNumber)
     
     const actions = [
       <FlatButton
@@ -75,7 +88,7 @@ export default class SelectProblem extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.props.handleClose}
+        onClick={() => this.props.handleSubmit(this.props.seatNumber, this.state.newProblemTitle, this.state.newProblemDescription)}
       />,
     ];
 
@@ -88,9 +101,9 @@ export default class SelectProblem extends React.Component {
         onRequestClose={this.props.handleClose}
         autoScrollBodyContent={true}
       >
-        <p><span>Current status: </span><span>{properties.status}</span></p>
-        <p><span>Last Serviced Date: </span><span>{properties.last_service_date.toString()}</span></p>
-        <div><span>Current Problems: </span><div className="chipWrapper">{this.buildProblemChips(properties.list_current_problems)}</div></div> 
+        <Divider/>
+        <p><span>Current status: </span><span>{"No Problems"}</span></p>
+        <div><span>Current Problems: </span><div className="chipWrapper">{this.buildProblemChips(properties[this.props.seatNumber])}</div></div> 
         <div>Add New Problem: <span>{this.buildAddProblem()}</span></div>   
         <div>Description(Optional): <span>{this.buildAddProblemDes()}</span></div>     
       </Dialog>
